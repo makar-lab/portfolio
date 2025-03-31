@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gaidot dzimšanas dienu..</title>
+</head>
+<body>
+    <h1>Gaidot dzimšanas dienu..</h1>
+    <hr>
+    <form>
+        <p>Ievadi pilnu datumu, kad Tev būs tuvākā dzimšanas diena</p>
+        <label for="gads">Gads:</label>
+        <input type="number" id="gads" name="gads" min="1900"><br><br>
+        <label for="menesis">Mēnesis:</label>
+        <input type="number" id="menesis" name="menesis" min="1" max="12"><br><br>
+        <label for="datums">Diena:</label>
+        <input type="number" id="datums" name="datums" min="1" max="31"><br><br>
+        <input type="button" id="poga" value="Aprēķināt dienu skaitu līdz dzimšanas dienai" onclick="aprēķinātDienas()">
+        <p><input type="text" id="dienasRezultats" readonly="" style="width: 300px;"></p>
+    </form>
+    <script>
+        function aprēķinātDienas() {
+            let gads = parseInt(document.getElementById('gads').value);
+            let menesis = parseInt(document.getElementById('menesis').value);
+            let datums = parseInt(document.getElementById('datums').value);
+
+            if (isNaN(gads) || gads < 1900) {
+                alert("Lūdzu, ievadiet pareizu gadu (1900 vai vēlāk)!");
+                return;
+            }
+            if (isNaN(menesis) || menesis < 1 || menesis > 12) {
+                alert("Lūdzu, ievadiet pareizu mēnesi (1-12)!");
+                return;
+            }
+            if (isNaN(datums) || datums < 1) {
+                alert("Lūdzu, ievadiet pareizu dienu (1 vai vairāk)!");
+                return;
+            }
+
+            let maxDays = getDaysInMonth(gads, menesis);
+            if (datums > maxDays) {
+                alert(`Šim mēnesim (${menesis}. mēnesis ${gads}. gadā) ir tikai ${maxDays} dienas!`);
+                return;
+            }
+
+            let today = new Date();
+            let birthday = new Date(gads, menesis - 1, datums);
+            let timeDiff = birthday - today;
+            let dayDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+            let absDays = Math.abs(dayDiff);
+
+            let dayWord = getDayWord(absDays);
+
+            if (dayDiff < 0) {
+                
+                let pagajusiWord = (absDays % 10 === 1 && absDays % 100 !== 11) ? "pagājusi" : "pagājušas";
+                document.getElementById('dienasRezultats').value = absDays + " " + dayWord + " " + pagajusiWord + " kopš dzimšanas dienas";
+            } else if (dayDiff > 0) {
+                
+                document.getElementById('dienasRezultats').value = absDays + " " + dayWord + " līdz dzimšanas dienai";
+            } else {
+                document.getElementById('dienasRezultats').value = "Šodien ir Tava dzimšanas diena! Apsveicu!";
+            }
+        }
+
+        function getDaysInMonth(year, month) {
+            return new Date(year, month, 0).getDate();
+        }
+
+        function getDayWord(days) {
+            if (days % 10 === 1 && days % 100 !== 11) {
+                return "diena";
+            } else {
+                return "dienas";
+            }
+        }
+    </script>
+</body>
+</html>

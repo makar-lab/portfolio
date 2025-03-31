@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+    <meta charset="UTF-8">
+    <title>Informācijas daudzuma mērvienības</title>
+    <style>
+        body {
+            background-image: url('images/cipari.jpg');
+            margin: 0;
+            padding: 0;
+            position: relative;
+        }
+        
+        h1 {
+            color: black;
+            text-align: left;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .converter-container {
+            background-color: rgb(220, 220, 0);
+            width: calc(100% - 4px);
+            padding: 0;
+            font-size: 20px;
+            box-sizing: border-box;
+            position: relative;
+            height: 160px;
+            margin-top: 20px;
+        }
+
+        .input-row {
+            display: flex;
+            align-items: center;
+            position: absolute;
+        }
+
+        input[type="text"] {
+            width: 170px;
+            padding: 5px;
+            font-size: 20px;
+            border: 1px solid black;
+            margin: 0;
+        }
+
+        button {
+            background-color: #dee2e3;
+            color: black;
+            border: 0.5px solid black;
+            padding: 5px 10px;
+            cursor: pointer;
+            width: 150px;
+            text-align: center;
+            font-size: 14px;
+            margin: 0 8px 0 0;
+        }
+
+        .unit {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        #row1 {
+            top: 2px;
+            left: 2px;
+        }
+
+        #row2 {
+            top: 50%;
+            left: 2px;
+            transform: translateY(-50%);
+        }
+
+        #row3 {
+            bottom: 1px;
+            left: 2px;
+        }
+    </style>
+</head>
+<body>
+   <h1>Informācijas daudzuma mērvienības</h1>
+    <form>
+        <div class="converter-container">
+            <div class="input-row" id="row1">
+                <input type="text" id="inputBytes"><span class="unit">GB=</span>
+            </div>
+            <div class="input-row" id="row2">
+                <button onclick="toMegabytes(event)">Izteikt megabaitos</button>
+                <input type="text" id="outputMB" readonly><span class="unit">MB</span>
+            </div>
+            <div class="input-row" id="row3">
+                <button onclick="toMebibytes(event)">Izteikt mibibaitos</button>
+                <input type="text" id="outputMiB" readonly><span class="unit">MiB</span>
+            </div>
+        </div>
+    </form>
+  <script>
+        function toMegabytes(event) {
+            event.preventDefault();
+            const gigabytes = parseFloat(document.getElementById('inputBytes').value);
+            if (!isNaN(gigabytes)) {
+                const mb = gigabytes * 1024;
+                document.getElementById('outputMB').value = mb.toFixed(2);
+            }
+        }
+
+        function toMebibytes(event) {
+            event.preventDefault();
+            const gigabytes = parseFloat(document.getElementById('inputBytes').value);
+            if (!isNaN(gigabytes)) {
+                const mib = gigabytes * 953.674;
+                document.getElementById('outputMiB').value = mib.toFixed(2);
+            }
+        }
+  </script>
+</body>
+</html>
