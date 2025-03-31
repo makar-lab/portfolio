@@ -7,7 +7,7 @@ body, html {
     height: 100%;
     line-height: 1.8;
     scroll-behavior: smooth;
-    background-image: url('../images/lu.png');
+    background-image: url('../images/lu.gif');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -79,7 +79,7 @@ body, html {
 body {
     margin: 0;
     font-family: 'Exo', sans-serif;
-    background: url('../images/lu.png') no-repeat center center fixed;
+    background: url('../images/lu.gif') no-repeat center center fixed;
     background-size: cover;
 }
 .w3-top {
